@@ -12,14 +12,15 @@ echo "5. Написать функцию, которая выводит спис
 function listfiles($dir, $needword) {
     $fileslist = scandir($dir);
         foreach ($fileslist as $item) {
+            $item = iconv("windows-1251", "utf-8", $item);
             $pozishn = strpos ($item, $needword);
-            if ($pozishn || $pozishn === 0) {
-            echo "{$item} <br />";
+            if ($pozishn || $pozishn === 0) {  //якщо true або позиція ідентична 0 (тобто 1-ший символ в строці)
+                echo "{$item} <br />";
             }
         }
 }
 $dir = 'examples'; //це мій приклад, сюди можна записати будь-яку директорію
-$needword = 'th';
+$needword = 'т';
 listfiles($dir, $needword);
 ?>
 </body>

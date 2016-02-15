@@ -12,7 +12,8 @@ echo "4. Написать функцию, которая выводит спис
 function listfiles($dir) {
     $fileslist = scandir($dir);
         foreach ($fileslist as $item) {
-        echo "{$item} <br />";
+            $item = iconv("windows-1251", "utf-8", $item);
+            echo "{$item} <br />";
     }
 }
 $dir = 'examples'; //це мій приклад, сюди можна записати будь-яку директорію
