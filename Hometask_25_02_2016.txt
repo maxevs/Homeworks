@@ -1,0 +1,17 @@
+9. Сотрудники, привязанные более чем к 5 клинетам 
+
+SELECT e.employeeNumber AS employee_id, e.firstName AS employee_name, COUNT(c.customerNumber) AS customers_count 
+FROM employees e JOIN customers c ONe.employeeNumber = c.salesRepEmployeeNumber GROUP BY e.employeeNumber 
+HAVING COUNT(c.customerNumber) > 5;
+
+
+16. Период заказов клиентов
+
+SELECT o1.orderNumber, o1.orderDate, o1.customerNumber, o2.orderNumber, o2.orderDate, o2.customerNumber FROM orders o1, 
+orders o2 WHERE o1.customerNumber =o2.customerNumber AND o1.orderDate > o2.orderDate AND (select count(*) from orders o3 
+where o3.orderDate < o1.orderDate and o3.orderDate > o2.orderDate ando1.customerNumber = o3.customerNumber) = 0 AND 
+period_diff(date_format(o1.orderDate, '%y%m'), date_format(o2.orderDate,'%y%m' )) > 3 GROUP BY o1.customerNumber
+ORDER BY o1.customerNumber ASC;
+
+
+Тестовая БД: php-academy.kiev.ua/sample.sql
